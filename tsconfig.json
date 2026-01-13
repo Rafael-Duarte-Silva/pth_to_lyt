@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "strict": true,
+        "declaration": true,
+        "moduleResolution": "Node",
+        "target": "es2015",
+        "module": "commonjs",
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "esModuleInterop": true,
+        "noImplicitAny": true
+    },
+    "ts-node": {
+        "esm": true
+    },
+    "include": ["**/*.ts", "src"],
+    "exclude": ["dist", "node_modules"]
+}
