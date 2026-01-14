@@ -1,5 +1,5 @@
 import { LFS_METER, SCALAR_FACTOR } from "./constants";
-import { PTHNode } from "input/types";
+import { PTHNode } from "../input/types";
 import { DriveLimits, LYTObject, Vector2 } from "./types";
 
 // LFS NOTATION

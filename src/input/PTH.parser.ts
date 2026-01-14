@@ -15,7 +15,9 @@ export function parserPTH(buffer: Buffer<ArrayBuffer>): PTH {
 }
 
 function readSystemHeader(buffer: Buffer<ArrayBuffer>): SystemHeader {
-    let offset: number = 0;
+    const SYSTEM_HEADER_OFFSET: number = 0;
+
+    let offset: number = SYSTEM_HEADER_OFFSET;
     const magic: string = buffer.toString("ascii", offset, offset + 6);
     offset += 6;
 
@@ -40,8 +42,9 @@ function readSystemHeader(buffer: Buffer<ArrayBuffer>): SystemHeader {
 }
 
 function readLocalHeader(buffer: Buffer<ArrayBuffer>): LocalHeader {
-    let offset: number = 12;
-    const miniRev: number = buffer.readUInt8(offset++);
+    const LOCAL_HEADER_OFFSET: number = 12;
+
+    const miniRev: number = buffer.readUInt8(LOCAL_HEADER_OFFSET);
 
     return {
         miniRev,
@@ -49,8 +52,9 @@ function readLocalHeader(buffer: Buffer<ArrayBuffer>): LocalHeader {
 }
 
 function readNumberNodes(buffer: Buffer<ArrayBuffer>): number {
-    let offset: number = 16;
-    const numberNodes = buffer.readUInt16LE(offset);
+    const NUMBER_NODES_OFFSET: number = 16;
+
+    const numberNodes = buffer.readUInt16LE(NUMBER_NODES_OFFSET);
     if (numberNodes <= 0) throw new Error("The number of nodes is too low");
 
     return numberNodes;
@@ -75,10 +79,12 @@ function readNode(offset: number, buffer: Buffer<ArrayBuffer>): PTHNode {
 }
 
 function readMainNodes(buffer: Buffer<ArrayBuffer>, length: number): PTHNode[] {
-    const startOffset: number = 56;
+    const MAIN_NODES_OFFSET: number = 56;
+    const PTH_NODE_OFFSET: number = 44;
+
     const nodes: PTHNode[] = [];
     for (let i: number = 0; i < length; i++) {
-        const offset: number = startOffset + 44 * i;
+        const offset: number = MAIN_NODES_OFFSET + PTH_NODE_OFFSET * i;
         nodes[i] = readNode(offset, buffer);
     }
 

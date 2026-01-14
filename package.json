@@ -1,12 +1,10 @@
 {
     "name": "pth_to_lyt",
-    "version": "1.0.0",
-    "main": "dist/main.js",
+    "version": "1.0.1",
+    "main": "dist/index.js",
     "private": false,
     "scripts": {
-        "start": "tsx watch src/main.ts",
-        "build": "tsc",
-        "serve:production": "node dist/main.js"
+        "build": "tsc"
     },
     "devDependencies": {
         "@types/node": "^20.10.5",

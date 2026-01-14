@@ -1,10 +1,11 @@
-import { parserPTH } from "input/PTH.parser";
-import { readPTH } from "input/PTH.reader";
-import { PTH } from "input/types";
-import { transformLYT } from "output/LYT.transform";
-import { writeLYT } from "output/LYT.writer";
-import { LYTObject } from "output/types";
+import { parserPTH } from "../input/PTH.parser";
+import { readPTH } from "../input/PTH.reader";
+import { PTH } from "../input/types";
+import { transformLYT } from "../output/LYT.transform";
+import { writeLYT } from "../output/LYT.writer";
+import { LYTObject } from "../output/types";
 
+/** Generate a .lyt file */
 export function convertPTHtoLYT(
     pthFolderPath: string,
     lytFolderPath: string,
