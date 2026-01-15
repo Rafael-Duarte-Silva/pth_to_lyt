@@ -1,21 +1,15 @@
 {
     "compilerOptions": {
-        "baseUrl": "./src",
-        "rootDir": "./src",
-        "outDir": "./dist",
-        "strict": true,
+        "target": "ES2020",
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
         "declaration": true,
-        "moduleResolution": "Node",
-        "target": "es2015",
-        "module": "commonjs",
-        "skipLibCheck": true,
-        "skipDefaultLibCheck": true,
+        "declarationMap": true,
+        "emitDeclarationOnly": false,
+        "outDir": "dist",
+        "strict": true,
         "esModuleInterop": true,
-        "noImplicitAny": true
+        "skipLibCheck": true
     },
-    "ts-node": {
-        "esm": true
-    },
-    "include": ["**/*.ts", "src"],
-    "exclude": ["dist", "node_modules"]
+    "include": ["src"]
 }
