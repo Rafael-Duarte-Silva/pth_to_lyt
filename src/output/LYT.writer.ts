@@ -2,15 +2,16 @@ import fs from "fs";
 import { LYTObject } from "./types";
 
 export function writeLYT(path: string, lytObjectArray: LYTObject[]) {
-    const bufferHeader: Buffer<ArrayBuffer> = buildBufferHeader(
-        lytObjectArray.length,
-    );
-    const bufferObjects: Buffer<ArrayBuffer> =
-        buildBufferLYTObject(lytObjectArray);
-    const bufferList: Buffer<ArrayBuffer>[] = [bufferHeader, bufferObjects];
-    const buffer: Buffer<ArrayBuffer> = Buffer.concat(bufferList);
-
+    const buffer: Buffer<ArrayBuffer> = buildLYTBuffer(lytObjectArray);
     fs.writeFileSync(path, buffer);
+}
+
+export function buildLYTBuffer(
+    lytObjectArray: LYTObject[],
+): Buffer<ArrayBuffer> {
+    const bufferHeader = buildBufferHeader(lytObjectArray.length);
+    const bufferObjects = buildBufferLYTObject(lytObjectArray);
+    return Buffer.concat([bufferHeader, bufferObjects]);
 }
 
 function buildBufferHeader(length: number) {
