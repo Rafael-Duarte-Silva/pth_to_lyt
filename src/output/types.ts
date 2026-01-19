@@ -1,3 +1,5 @@
+import { Vector2 } from "../shared/types";
+
 export type LYTObject = {
     x: number;
     y: number;
@@ -5,11 +7,6 @@ export type LYTObject = {
     flags: number;
     index: number;
     heading: number;
-};
-
-export type Vector2 = {
-    x: number;
-    y: number;
 };
 
 export type DriveLimits = {

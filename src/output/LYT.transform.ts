@@ -1,6 +1,7 @@
 import { LFS_METER, SCALAR_FACTOR } from "./constants";
 import { PTHNode } from "../input/types";
-import { DriveLimits, LYTObject, Vector2 } from "./types";
+import { DriveLimits, LYTObject } from "./types";
+import { Vector2 } from "../shared/types";
 
 // LFS NOTATION
 // 0 = world y axis direction
@@ -20,7 +21,7 @@ export function transformLYT(
     const FIRST_CHECKPOINT_FLAG: number = 0x01;
     const MAX_NODE: number = 180;
 
-    const objectArray: LYTObject[] = [];
+    const lfsObjectArray: LYTObject[] = [];
     const length: number = numberNodes < MAX_NODE ? numberNodes : MAX_NODE;
     const gap: number = numberNodes / length;
 
@@ -28,7 +29,7 @@ export function transformLYT(
         const nodeIndex: number = Math.round(gap * i);
         const node: PTHNode = nodes[nodeIndex];
 
-        const heading: number = calculateHeading(node.dir.x, node.dir.y);
+        const heading: number = calculateHeading(node.dir);
         const driveLimits: DriveLimits = calculateDriveLimits(node);
         const halfWidth: number = calculateHalfWidth(driveLimits);
         const midPoint: Vector2 = calculateMidPoint(driveLimits);
@@ -36,7 +37,7 @@ export function transformLYT(
         const lytObjectX: number = transformLYTObjectPosition(midPoint.x);
         const lytObjectY: number = transformLYTObjectPosition(midPoint.y);
 
-        objectArray.push({
+        lfsObjectArray.push({
             x: lytObjectX,
             y: lytObjectY,
             z: ZBYTE,
@@ -46,21 +47,22 @@ export function transformLYT(
         });
     }
 
-    return objectArray;
+    return lfsObjectArray;
 }
 
 export function transformLYTObjectPosition(value: number): number {
     return Math.round(value / SCALAR_FACTOR);
 }
 
-export function calculateHeading(dirX: number, dirY: number): number {
-    const angleRadians: number = Math.atan2(dirY, dirX);
-    const angleDegrees: number = angleRadians * (180 / Math.PI);
-    //"Heading represents 360 degrees in 256 values."
-    const heading: number =
-        Math.round(((angleDegrees - 90 + 180) * 256) / 360) & 0xff;
+export function calculateHeading(dir: Vector2): number {
+    // 0 = world y axis direction
+    const ANGLE_OFFSET = 90;
 
-    return heading;
+    const angleRadians: number = Math.atan2(dir.y, dir.x);
+    const angleDegrees: number = angleRadians * (180 / Math.PI) - ANGLE_OFFSET;
+
+    //"Heading represents 360 degrees in 256 values."
+    return Math.round(((angleDegrees + 180) * 256) / 360) & 0xff;
 }
 
 export function calculateDriveLimits(node: PTHNode): DriveLimits {
@@ -92,7 +94,6 @@ export function calculateMidPoint(driveLimits: DriveLimits): Vector2 {
     return { x, y };
 }
 
-// "half width in metres (1 to 31 ...)."
 export function calculateHalfWidth(
     driveLimits: DriveLimits,
     widthOffset: number = 2,
@@ -110,5 +111,6 @@ export function calculateHalfWidth(
         distance / LFS_METER / 2 + widthOffset,
     );
 
+    // "half width in metres (1 to 31 ...)."
     return halfWidth > 31 ? 31 : halfWidth;
 }

@@ -1,3 +1,5 @@
+import { Vector2 } from "../shared/types";
+
 export type PTH = {
     systemHeader: SystemHeader;
     localHeader: LocalHeader;
@@ -16,14 +18,8 @@ export type LocalHeader = {
 };
 
 export type PTHNode = {
-    centre: {
-        x: number;
-        y: number;
-    };
-    dir: {
-        x: number;
-        y: number;
-    };
+    centre: Vector2;
+    dir: Vector2;
     limits: {
         driveLeft: number;
         driveRight: number;
