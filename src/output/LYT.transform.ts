@@ -2,6 +2,7 @@ import { LFS_METER, SCALAR_FACTOR } from "./constants";
 import { PTHNode } from "../input/types";
 import { DriveLimits, LYTObject } from "./types";
 import { Vector2 } from "../shared/types";
+import { clamp } from "../shared/utils/math";
 
 // LFS NOTATION
 // 0 = world y axis direction
@@ -112,5 +113,5 @@ export function calculateHalfWidth(
     );
 
     // "half width in metres (1 to 31 ...)."
-    return halfWidth > 31 ? 31 : halfWidth;
+    return clamp(halfWidth, 1, 31);
 }
