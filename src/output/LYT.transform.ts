@@ -21,7 +21,7 @@ export function transformLYT(
     const FIRST_CHECKPOINT_FLAG: number = 0x01;
     const MAX_NODE: number = 180;
 
-    const lfsObjectArray: LYTObject[] = [];
+    const lytObjectArray: LYTObject[] = [];
     const length: number = numberNodes < MAX_NODE ? numberNodes : MAX_NODE;
     const gap: number = numberNodes / length;
 
@@ -37,7 +37,7 @@ export function transformLYT(
         const lytObjectX: number = transformLYTObjectPosition(midPoint.x);
         const lytObjectY: number = transformLYTObjectPosition(midPoint.y);
 
-        lfsObjectArray.push({
+        lytObjectArray.push({
             x: lytObjectX,
             y: lytObjectY,
             z: ZBYTE,
@@ -47,7 +47,7 @@ export function transformLYT(
         });
     }
 
-    return lfsObjectArray;
+    return lytObjectArray;
 }
 
 export function transformLYTObjectPosition(value: number): number {

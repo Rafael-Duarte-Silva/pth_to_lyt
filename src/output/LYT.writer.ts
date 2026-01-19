@@ -1,12 +1,12 @@
 import fs from "fs";
 import { LYTObject } from "./types";
 
-export function writeLYT(path: string, lfsObjectArray: LYTObject[]) {
+export function writeLYT(path: string, lytObjectArray: LYTObject[]) {
     const bufferHeader: Buffer<ArrayBuffer> = buildBufferHeader(
-        lfsObjectArray.length,
+        lytObjectArray.length,
     );
     const bufferObjects: Buffer<ArrayBuffer> =
-        buildBufferLYTObject(lfsObjectArray);
+        buildBufferLYTObject(lytObjectArray);
     const bufferList: Buffer<ArrayBuffer>[] = [bufferHeader, bufferObjects];
     const buffer: Buffer<ArrayBuffer> = Buffer.concat(bufferList);
 
@@ -26,12 +26,12 @@ function buildBufferHeader(length: number) {
     return buffer;
 }
 
-function buildBufferLYTObject(lfsObjectArray: LYTObject[]) {
-    const buffer: Buffer<ArrayBuffer> = Buffer.alloc(8 * lfsObjectArray.length);
+function buildBufferLYTObject(lytObjectArray: LYTObject[]) {
+    const buffer: Buffer<ArrayBuffer> = Buffer.alloc(8 * lytObjectArray.length);
     let offset: number = 0;
 
-    for (let i: number = 0; i < lfsObjectArray.length; i++) {
-        const object: LYTObject = lfsObjectArray[i];
+    for (let i: number = 0; i < lytObjectArray.length; i++) {
+        const object: LYTObject = lytObjectArray[i];
 
         buffer.writeInt16LE(object.x, offset);
         offset += 2;
