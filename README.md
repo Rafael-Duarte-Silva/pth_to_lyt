@@ -45,5 +45,5 @@ Em vez de criar manualmente um layout no editor do LFS, esta lib automatiza o pr
 ## Instalação
 
 ```bash
-npm instala pth-to-lyt
+npm install pth-to-lyt
 ```
